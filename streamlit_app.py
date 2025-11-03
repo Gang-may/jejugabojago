@@ -13,7 +13,6 @@ st.set_page_config(
 navigation.apply_theme()
 
 st.write("Registered Pages (Streamlit Sees):")
-st.write(st.page_registry.keys())
 
 # --- [수정됨] navigation.show_header() 호출 대신, 모든 것을 직접 구성 ---
 
