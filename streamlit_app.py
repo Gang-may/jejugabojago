@@ -29,24 +29,23 @@ st.markdown(
 st.markdown('<div class="golden-header-v12-final">', unsafe_allow_html=True) # 배경색을 위해 클래스 사용
 
 # --- ★★★ (수정 1) ★★★ ---
-# 딕셔너리의 "키"와 "path" 값을 모두
-# "pages/"와 ".py"가 없는 짧은 이름으로 변경합니다.
+# 딕셔너리의 "키"와 "path" 값을 모두 "영어"로 변경합니다.
+# (pages/ 폴더의 실제 파일 이름도 1_calendar.py 등으로 바꿔야 합니다!)
 pages = {
-    "1_쾌적도캘린더": {"label": "📅 관광 쾌적도 캘린더", "path": "1_쾌적도캘린더"},
-    "2_숙소필터": {"label": "🏨 맞춤 숙소 찾기", "path": "2_숙소필터"},
-    "3_황금동행": {"label": "🚌 황금 단체투어", "path": "3_황금동행"}, 
-    "4_황금원패스": {"label": "🎫 황금 올인원 패키지", "path": "4_황금원패스"}, 
-    "5_제주이야기": {"label": "🧘 제주이야기", "path": "5_제주이야기"},
-    "6_미식게시판": {"label": "🍲 맛집 커뮤니티", "path": "6_미식게시판"},
-    "7_나만의_여행일정": {"label": "✍️ 나만의 여행 일정", "path": "7_나만의_여행일정"},
-    "8_스마트추천맵": {"label": "🗺️ 스마트 추천맵", "path": "8_스마트추천맵"}, 
-    "9_스마트맛집검색": {"label": "🔎 스마트 맛집", "path": "9_스마트맛집검색"},
-    "10_지역별추천": {"label": "📍 지역별 추천", "path": "10_지역별추천"},
+    "1_calendar": {"label": "📅 관광 쾌적도 캘린더", "path": "1_calendar"},
+    "2_hotel_filter": {"label": "🏨 맞춤 숙소 찾기", "path": "2_hotel_filter"},
+    "3_group_tour": {"label": "🚌 황금 단체투어", "path": "3_group_tour"}, 
+    "4_all_in_one": {"label": "🎫 황금 올인원 패키지", "path": "4_all_in_one"}, 
+    "5_jeju_story": {"label": "🧘 제주이야기", "path": "5_jeju_story"},
+    "6_food_community": {"label": "🍲 맛집 커뮤니티", "path": "6_food_community"},
+    "7_my_plan": {"label": "✍️ 나만의 여행 일정", "path": "7_my_plan"},
+    "8_smart_map": {"label": "🗺️ 스마트 추천맵", "path": "8_smart_map"}, 
+    "9_smart_food": {"label": "🔎 스마트 맛집", "path": "9_smart_food"},
+    "10_region_recommend": {"label": "📍 지역별 추천", "path": "10_region_recommend"},
 }
 # --- ★★★ (수정 1 완료) ★★★ ---
 
 def render_button(page_key: str):
-    # 이제 page_key (예: "1_쾌적도캘린더")가 pages 딕셔너리의 키와 일치합니다.
     page_info = pages[page_key]
     button_label = page_info["label"]
     button_path = page_info["path"]
@@ -54,40 +53,44 @@ def render_button(page_key: str):
     button_type = "primary" 
     
     if st.button(button_label, type=button_type, use_container_width=True, key=page_key):
-        # button_path (예: "1_쾌적도캘린더")가 st.switch_page로 전달됩니다.
         st.switch_page(button_path)
 
+# --- ★★★ (수정 2) ★★★ ---
+# render_button 호출도 "영어" 키로 변경합니다.
 link_cols_1 = st.columns(5)
 with link_cols_1[0]:
-    render_button("1_쾌적도캘린더") # 이 호출은 이제 올바릅니다.
+    render_button("1_calendar")
 with link_cols_1[1]:
-    render_button("2_숙소필터")
+    render_button("2_hotel_filter")
 with link_cols_1[2]:
-    render_button("3_황금동행")
+    render_button("3_group_tour")
 with link_cols_1[3]:
-    render_button("4_황금원패스")
+    render_button("4_all_in_one")
 with link_cols_1[4]:
-    render_button("5_제주이야기")
+    render_button("5_jeju_story")
 
 
 link_cols_2 = st.columns(5)
 with link_cols_2[0]:
-    render_button("6_미식게시판")
+    render_button("6_food_community")
 with link_cols_2[1]:
-    render_button("7_나만의_여행일정")
+    render_button("7_my_plan")
 with link_cols_2[2]:
-    render_button("8_스마트추천맵")
+    render_button("8_smart_map")
 with link_cols_2[3]:
-    render_button("9_스마트맛집검색")
+    render_button("9_smart_food")
 with link_cols_2[4]:
-    render_button("10_지역별추천")
+    render_button("10_region_recommend")
+# --- ★★★ (수정 2 완료) ★★★ ---
 
 st.markdown('</div>', unsafe_allow_html=True)
 # --- [수정 완료] ---
 
 
-# --- (데이터 로드 함수들 - 변경 없음) ---
-data_folder_name = '데이터'
+# --- ★★★ (수정 3) ★★★ ---
+# 데이터 폴더 이름도 "영어"로 변경합니다. (실제 폴더 이름도 'data'로 변경해야 함)
+data_folder_name = 'data' # '데이터' -> 'data'
+# --- ★★★ (수정 3 완료) ★★★ ---
 data_path = data_folder_name
 final_themes_file = os.path.join(data_path, 'golden_compass_final_themes.csv')
 foodie_file = os.path.join(data_path, 'golden_compass_foodie_ranking.csv')
@@ -137,7 +140,7 @@ def main_dashboard():
     df_foodie = load_data(foodie_file)
 
     if df_full.empty:
-        st.error("데이터 파일을 찾을 수 없습니다. '데이터' 폴더를 확인해주세요.")
+        st.error("데이터 파일을 찾을 수 없습니다. 'data' 폴더를 확인해주세요.") # '데이터' -> 'data'
         return
         
     st.markdown("---")
@@ -163,15 +166,15 @@ def main_dashboard():
             best_service = "🚌 황금 단체투어" if current_data['전세버스 가동률'] <= 30.0 else "🎫 황금 올인원 패키지"
             st.metric("추천 서비스", best_service)
         
-        # --- ★★★ (수정 2) ★★★ ---
-        # st.switch_page 호출을 "짧은 이름"으로 변경합니다.
+        # --- ★★★ (수정 4) ★★★ ---
+        # st.switch_page 호출을 "영어" 이름으로 변경합니다.
         if best_service == "🚌 황금 단체투어":
             if st.button("➡️ 이달의 추천 '황금 단체투어' 바로가기", type="primary", use_container_width=True):
-                st.switch_page("3_황금동행")
+                st.switch_page("3_group_tour")
         else: 
             if st.button("➡️ 이달의 추천 '황금 올인원 패키지' 바로가기", type="primary", use_container_width=True):
-                st.switch_page("4_황금원패스")
-        # --- ★★★ (수정 2 완료) ★★★ ---
+                st.switch_page("4_all_in_one")
+        # --- ★★★ (수정 4 완료) ★★★ ---
     
     except (IndexError, KeyError) as e:
         st.info(f"현재 월에 대한 추천 데이터를 불러올 수 없습니다. (데이터는 2025년 11월 기준 고정)")
@@ -181,27 +184,27 @@ def main_dashboard():
     st.markdown("---")
     st.subheader("🌟 GOLDEN JEJU 주요 서비스")
     
-    # --- ★★★ (수정 3) ★★★ ---
-    # 모든 st.switch_page 호출을 "짧은 이름"으로 변경합니다.
+    # --- ★★★ (수정 5) ★★★ ---
+    # 모든 st.switch_page 호출을 "영어" 이름으로 변경합니다.
     cols = st.columns(3)
     with cols[0]:
         with st.container(border=True):
             st.markdown("##### 📅 관광 쾌적도 캘린더")
             st.caption("월별 쾌적도 예측 정보를 한눈에 확인하고, 여행 계획에 활용하세요.")
             if st.button("캘린더 보러가기", use_container_width=True, key="main_cal"):
-                st.switch_page("1_쾌적도캘린더")
+                st.switch_page("1_calendar")
     with cols[1]:
         with st.container(border=True):
             st.markdown("##### 🏨 맞춤 숙소 찾기")
             st.caption("선호하는 조건과 쾌적도를 고려한 최적의 숙소를 추천받으세요.")
             if st.button("숙소 찾기", use_container_width=True, key="main_accom"):
-                st.switch_page("2_숙소필터")
+                st.switch_page("2_hotel_filter")
     with cols[2]:
         with st.container(border=True):
             st.markdown("##### 🚌 황금 단체투어")
             st.caption("혼자여도 괜찮아요! 또래 시니어와 함께 떠나는 즐거운 소셜 투어.")
             if st.button("단체 투어 신청", use_container_width=True, key="main_tour"):
-                st.switch_page("3_황금동행")
+                st.switch_page("3_group_tour")
     
     cols2 = st.columns(3)
     with cols2[0]:
@@ -209,20 +212,20 @@ def main_dashboard():
             st.markdown("##### 🎫 황금 올인원 패키지")
             st.caption("숙소+활동+식사까지! 데이터가 추천하는 알찬 올인원 패키지.")
             if st.button("패키지 예약하기", use_container_width=True, key="main_pass"):
-                st.switch_page("4_황금원패스")
+                st.switch_page("4_all_in_one")
     with cols2[1]:
         with st.container(border=True):
             st.markdown("##### ✍️ 나만의 여행 일정")
             st.caption("찜한 장소로 나만의 코스를 만들거나, 자동으로 코스를 생성해보세요.")
             if st.button("일정 만들기", use_container_width=True, key="main_plan"):
-                st.switch_page("7_나만의_여행일정")
+                st.switch_page("7_my_plan")
     with cols2[2]:
         with st.container(border=True):
             st.markdown("##### 📍 지역별 추천")
             st.caption("제주시, 애월, 서귀포 등 주요 지역의 추천 장소를 바로 확인하세요.")
             if st.button("지역별 추천 보기", use_container_width=True, key="main_region"):
-                st.switch_page("10_지역별추천")
-    # --- ★★★ (수정 3 완료) ★★★ ---
+                st.switch_page("10_region_recommend")
+    # --- ★★★ (수정 5 완료) ★★★ ---
 
 
     # --- "월별 상세 지표" 섹션 (변경 없음) ---
