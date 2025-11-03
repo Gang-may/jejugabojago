@@ -12,8 +12,6 @@ st.set_page_config(
 )
 navigation.apply_theme()
 
-st.write("Registered Pages (Streamlit Sees):")
-
 # --- [수정됨] navigation.show_header() 호출 대신, 모든 것을 직접 구성 ---
 
 # 1. 메인 로고 및 설명 (navigation.py의 CSS 클래스 사용)
