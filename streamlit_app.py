@@ -53,28 +53,28 @@ def render_button(page_key: str):
 
 link_cols_1 = st.columns(5)
 with link_cols_1[0]:
-    render_button("pages/1_쾌적도캘린더")
+    render_button("1_쾌적도캘린더")
 with link_cols_1[1]:
-    render_button("pages/2_숙소필터")
+    render_button("2_숙소필터")
 with link_cols_1[2]:
-    render_button("pages/3_황금동행")
+    render_button("3_황금동행")
 with link_cols_1[3]:
-    render_button("pages/4_황금원패스")
+    render_button("4_황금원패스")
 with link_cols_1[4]:
-    render_button("pages/5_제주이야기")
+    render_button("5_제주이야기")
 
 
 link_cols_2 = st.columns(5)
 with link_cols_2[0]:
-    render_button("pages/6_미식게시판")
+    render_button("6_미식게시판")
 with link_cols_2[1]:
-    render_button("pages/7_나만의_여행일정")
+    render_button("7_나만의_여행일정")
 with link_cols_2[2]:
-    render_button("pages/8_스마트추천맵")
+    render_button("8_스마트추천맵")
 with link_cols_2[3]:
-    render_button("pages/9_스마트맛집검색")
+    render_button("9_스마트맛집검색")
 with link_cols_2[4]:
-    render_button("pages/10_지역별추천")
+    render_button("10_지역별추천")
 
 st.markdown('</div>', unsafe_allow_html=True)
 # --- [수정 완료] ---
