@@ -59,7 +59,7 @@ def render_button(page_key: str):
 # render_button 호출도 "영어" 키로 변경합니다.
 link_cols_1 = st.columns(5)
 with link_cols_1[0]:
-    render_button("1_calendar.py")
+    render_button("1_calendar")
 with link_cols_1[1]:
     render_button("2_hotel_filter")
 with link_cols_1[2]:
