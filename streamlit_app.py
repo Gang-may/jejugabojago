@@ -30,7 +30,7 @@ st.markdown('<div class="golden-header-v12-final">', unsafe_allow_html=True) # �
 
 # --- ★★★ (수정 1) ★★★ ---
 # 딕셔너리의 "키"와 "path" 값을 모두 "영어"로 변경합니다.
-# (pages/ 폴더의 실제 파일 이름도 1_calendar.py 등으로 바꿔야 합니다!)
+# (실제 pages/ 폴더의 파일 이름도 1_calendar.py 등으로 바꿔야 합니다!)
 pages = {
     "1_calendar": {"label": "📅 관광 쾌적도 캘린더", "path": "1_calendar"},
     "2_hotel_filter": {"label": "🏨 맞춤 숙소 찾기", "path": "2_hotel_filter"},
@@ -89,9 +89,12 @@ st.markdown('</div>', unsafe_allow_html=True)
 
 # --- ★★★ (수정 3) ★★★ ---
 # 데이터 폴더 이름도 "영어"로 변경합니다. (실제 폴더 이름도 'data'로 변경해야 함)
+# (경로 문제를 근본적으로 해결하기 위해 '절대 경로' 사용)
+base_path = os.path.dirname(os.path.abspath(__file__))
 data_folder_name = 'data' # '데이터' -> 'data'
+data_path = os.path.join(base_path, data_folder_name)
 # --- ★★★ (수정 3 완료) ★★★ ---
-data_path = data_folder_name
+
 final_themes_file = os.path.join(data_path, 'golden_compass_final_themes.csv')
 foodie_file = os.path.join(data_path, 'golden_compass_foodie_ranking.csv')
 
@@ -100,7 +103,8 @@ def load_data(file_path):
     if not os.path.exists(file_path):
         return pd.DataFrame()
     try:
-        df = pd.read_csv(file_path)
+        # (한글 경로/파일명이 포함된 CSV를 읽을 때를 대비해 encoding='utf-8-sig' 추가)
+        df = pd.read_csv(file_path, encoding='utf-8-sig')
         if '날짜' in df.columns:
             df['날짜'] = pd.to_datetime(df['날짜'])
             df['월_라벨'] = df['날짜'].dt.strftime('%Y년 %m월')
@@ -126,7 +130,8 @@ def load_foodie_data(file_path):
     if not os.path.exists(file_path):
         return pd.DataFrame()
     try:
-        df = pd.read_csv(file_path)
+        # (한글 경로/파일명이 포함된 CSV를 읽을 때를 대비해 encoding='utf-8-sig' 추가)
+        df = pd.read_csv(file_path, encoding='utf-8-sig')
         return df
     except Exception as e:
         st.error(f"미식 데이터 로드 중 오류 발생: {e}")
