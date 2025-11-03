@@ -28,20 +28,25 @@ st.markdown(
 # 2. 네비게이션 버튼 바 (navigation.py의 로직을 직접 복사)
 st.markdown('<div class="golden-header-v12-final">', unsafe_allow_html=True) # 배경색을 위해 클래스 사용
 
+# --- ★★★ (수정 1) ★★★ ---
+# 딕셔너리의 "키"와 "path" 값을 모두
+# "pages/"와 ".py"가 없는 짧은 이름으로 변경합니다.
 pages = {
-    "pages/1_쾌적도캘린더.py": {"label": "📅 관광 쾌적도 캘린더", "path": "pages/1_쾌적도캘린더.py"},
-    "pages/2_숙소필터.py": {"label": "🏨 맞춤 숙소 찾기", "path": "pages/2_숙소필터.py"},
-    "pages/3_황금동행.py": {"label": "🚌 황금 단체투어", "path": "pages/3_황금동행.py"}, 
-    "pages/4_황금원패스.py": {"label": "🎫 황금 올인원 패키지", "path": "pages/4_황금원패스.py"}, 
-    "pages/5_제주이야기.py": {"label": "🧘 제주이야기", "path": "pages/5_제주이야기.py"},
-    "pages/6_미식게시판.py": {"label": "🍲 맛집 커뮤니티", "path": "pages/6_미식게시판.py"},
-    "pages/7_나만의_여행일정.py": {"label": "✍️ 나만의 여행 일정", "path": "pages/7_나만의_여행일정.py"},
-    "pages/8_스마트추천맵.py": {"label": "🗺️ 스마트 추천맵", "path": "pages/8_스마트추천맵.py"}, 
-    "pages/9_스마트맛집검색.py": {"label": "🔎 스마트 맛집", "path": "pages/9_스마트맛집검색.py"},
-    "pages/10_지역별추천.py": {"label": "📍 지역별 추천", "path": "pages/10_지역별추천.py"},
+    "1_쾌적도캘린더": {"label": "📅 관광 쾌적도 캘린더", "path": "1_쾌적도캘린더"},
+    "2_숙소필터": {"label": "🏨 맞춤 숙소 찾기", "path": "2_숙소필터"},
+    "3_황금동행": {"label": "🚌 황금 단체투어", "path": "3_황금동행"}, 
+    "4_황금원패스": {"label": "🎫 황금 올인원 패키지", "path": "4_황금원패스"}, 
+    "5_제주이야기": {"label": "🧘 제주이야기", "path": "5_제주이야기"},
+    "6_미식게시판": {"label": "🍲 맛집 커뮤니티", "path": "6_미식게시판"},
+    "7_나만의_여행일정": {"label": "✍️ 나만의 여행 일정", "path": "7_나만의_여행일정"},
+    "8_스마트추천맵": {"label": "🗺️ 스마트 추천맵", "path": "8_스마트추천맵"}, 
+    "9_스마트맛집검색": {"label": "🔎 스마트 맛집", "path": "9_스마트맛집검색"},
+    "10_지역별추천": {"label": "📍 지역별 추천", "path": "10_지역별추천"},
 }
+# --- ★★★ (수정 1 완료) ★★★ ---
 
 def render_button(page_key: str):
+    # 이제 page_key (예: "1_쾌적도캘린더")가 pages 딕셔너리의 키와 일치합니다.
     page_info = pages[page_key]
     button_label = page_info["label"]
     button_path = page_info["path"]
@@ -49,11 +54,12 @@ def render_button(page_key: str):
     button_type = "primary" 
     
     if st.button(button_label, type=button_type, use_container_width=True, key=page_key):
+        # button_path (예: "1_쾌적도캘린더")가 st.switch_page로 전달됩니다.
         st.switch_page(button_path)
 
 link_cols_1 = st.columns(5)
 with link_cols_1[0]:
-    render_button("1_쾌적도캘린더")
+    render_button("1_쾌적도캘린더") # 이 호출은 이제 올바릅니다.
 with link_cols_1[1]:
     render_button("2_숙소필터")
 with link_cols_1[2]:
@@ -80,7 +86,7 @@ st.markdown('</div>', unsafe_allow_html=True)
 # --- [수정 완료] ---
 
 
-# --- (데이터 로드 함수들) ---
+# --- (데이터 로드 함수들 - 변경 없음) ---
 data_folder_name = '데이터'
 data_path = data_folder_name
 final_themes_file = os.path.join(data_path, 'golden_compass_final_themes.csv')
@@ -157,12 +163,15 @@ def main_dashboard():
             best_service = "🚌 황금 단체투어" if current_data['전세버스 가동률'] <= 30.0 else "🎫 황금 올인원 패키지"
             st.metric("추천 서비스", best_service)
         
+        # --- ★★★ (수정 2) ★★★ ---
+        # st.switch_page 호출을 "짧은 이름"으로 변경합니다.
         if best_service == "🚌 황금 단체투어":
             if st.button("➡️ 이달의 추천 '황금 단체투어' 바로가기", type="primary", use_container_width=True):
-                st.switch_page("pages/3_황금동행.py")
+                st.switch_page("3_황금동행")
         else: 
             if st.button("➡️ 이달의 추천 '황금 올인원 패키지' 바로가기", type="primary", use_container_width=True):
-                st.switch_page("pages/4_황금원패스.py")
+                st.switch_page("4_황금원패스")
+        # --- ★★★ (수정 2 완료) ★★★ ---
     
     except (IndexError, KeyError) as e:
         st.info(f"현재 월에 대한 추천 데이터를 불러올 수 없습니다. (데이터는 2025년 11월 기준 고정)")
@@ -172,25 +181,27 @@ def main_dashboard():
     st.markdown("---")
     st.subheader("🌟 GOLDEN JEJU 주요 서비스")
     
+    # --- ★★★ (수정 3) ★★★ ---
+    # 모든 st.switch_page 호출을 "짧은 이름"으로 변경합니다.
     cols = st.columns(3)
     with cols[0]:
         with st.container(border=True):
             st.markdown("##### 📅 관광 쾌적도 캘린더")
             st.caption("월별 쾌적도 예측 정보를 한눈에 확인하고, 여행 계획에 활용하세요.")
             if st.button("캘린더 보러가기", use_container_width=True, key="main_cal"):
-                st.switch_page("pages/1_쾌적도캘린더.py")
+                st.switch_page("1_쾌적도캘린더")
     with cols[1]:
         with st.container(border=True):
             st.markdown("##### 🏨 맞춤 숙소 찾기")
             st.caption("선호하는 조건과 쾌적도를 고려한 최적의 숙소를 추천받으세요.")
             if st.button("숙소 찾기", use_container_width=True, key="main_accom"):
-                st.switch_page("pages/2_숙소필터.py")
+                st.switch_page("2_숙소필터")
     with cols[2]:
         with st.container(border=True):
             st.markdown("##### 🚌 황금 단체투어")
             st.caption("혼자여도 괜찮아요! 또래 시니어와 함께 떠나는 즐거운 소셜 투어.")
             if st.button("단체 투어 신청", use_container_width=True, key="main_tour"):
-                st.switch_page("pages/3_황금동행.py")
+                st.switch_page("3_황금동행")
     
     cols2 = st.columns(3)
     with cols2[0]:
@@ -198,22 +209,23 @@ def main_dashboard():
             st.markdown("##### 🎫 황금 올인원 패키지")
             st.caption("숙소+활동+식사까지! 데이터가 추천하는 알찬 올인원 패키지.")
             if st.button("패키지 예약하기", use_container_width=True, key="main_pass"):
-                st.switch_page("pages/4_황금원패스.py")
+                st.switch_page("4_황금원패스")
     with cols2[1]:
         with st.container(border=True):
             st.markdown("##### ✍️ 나만의 여행 일정")
             st.caption("찜한 장소로 나만의 코스를 만들거나, 자동으로 코스를 생성해보세요.")
             if st.button("일정 만들기", use_container_width=True, key="main_plan"):
-                st.switch_page("pages/7_나만의_여행일정.py")
+                st.switch_page("7_나만의_여행일정")
     with cols2[2]:
         with st.container(border=True):
             st.markdown("##### 📍 지역별 추천")
             st.caption("제주시, 애월, 서귀포 등 주요 지역의 추천 장소를 바로 확인하세요.")
             if st.button("지역별 추천 보기", use_container_width=True, key="main_region"):
-                st.switch_page("pages/10_지역별추천.py")
+                st.switch_page("10_지역별추천")
+    # --- ★★★ (수정 3 완료) ★★★ ---
 
 
-    # --- "월별 상세 지표" 섹션 ---
+    # --- "월별 상세 지표" 섹션 (변경 없음) ---
     st.markdown("---")
     st.subheader("📊 월별 상세 지표 및 추천 서비스")
     st.caption("과거 또는 미래의 '황금시기' 월을 선택하여 상세 지표와 추천 서비스를 확인하세요.")
